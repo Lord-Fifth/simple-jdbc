@@ -1,6 +1,7 @@
 package com.flytxt.sql;
 
 import java.sql.*;
+import java.io.*;
 
 public class JdbcGetAll {
 	
@@ -12,8 +13,9 @@ public class JdbcGetAll {
 	   static final String USER = "aditya";
 	   static final String PASS = "root123";
 	   
-	   public static void main(String[] args) {
-		   
+	   public static void main(String[] args)throws IOException {
+	   BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	   
 	   Connection conn = null;
 	   Statement stmt = null;
 	   int no;
@@ -74,11 +76,12 @@ public class JdbcGetAll {
 	      fs.close();
 	      stmt.close();
 	      
-	      System.out.println();
+	      System.out.println("Enter Employee ID to be searched.");
+	      int id = Integer.parseInt(br.readLine());
 	      
 	      //Query to get details based on employee no.
 	      stmt = conn.createStatement();
-	      sql = "SELECT first_name,last_name,birth_date FROM employees WHERE emp_no = 101";
+	      sql = "SELECT first_name,last_name,birth_date FROM employees WHERE emp_no = " + id;
 	      ResultSet cs = stmt.executeQuery(sql);
  
 	      if(cs.next()) {
