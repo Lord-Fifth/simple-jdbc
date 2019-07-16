@@ -30,10 +30,13 @@ public class JdbcDeleteAll {
 		      conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		      System.out.println("Connected database successfully...");
 		      
+		      System.out.println("Enter Employee ID to be deleted.");
+		      int id = Integer.parseInt(br.readLine());
+		      
 		      //Execute a query
 		      System.out.println("Creating statement...");
 		      stmt = conn.createStatement();
-		      String sql = "DELETE FROM employees WHERE emp_no = 104";
+		      String sql = "DELETE FROM employees WHERE emp_no = " + id;
 		      stmt.executeUpdate(sql);
 
 		      // Now you can extract all the records to see the updated records
