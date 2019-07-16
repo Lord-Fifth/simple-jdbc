@@ -33,13 +33,13 @@ public class JdbcUpdateAll {
 		      //Execute a query
 		      System.out.println("Creating statement...");
 		      stmt = conn.createStatement();
-		      String sql = "UPDATE employees SET gender = 'F' WHERE emp_no in ('101', '102')";
+		      String sql = "UPDATE employees SET gender = 'F' WHERE emp_no in ('101', '101')";
 		      stmt.executeUpdate(sql);
 
 		      // Now you can extract all the records to see the updated records
 		      sql = "SELECT emp_no, first_name, last_name, gender FROM employees";
 		      ResultSet rs = stmt.executeQuery(sql);
-
+		      
 		      while(rs.next()){
 		    	//Retrieve by column name
 		    	no  = rs.getInt("emp_no");
