@@ -19,7 +19,7 @@ public class JdbcInsertAll {
 	   Connection conn = null;
 	   Statement stmt = null;
 	   int no;
-       Date bdate,hdate;
+       String bdate,hdate;
        String first,last,gen;
 	   try{
 		      //Register JDBC driver
@@ -30,11 +30,20 @@ public class JdbcInsertAll {
 		      conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		      System.out.println("Connected database successfully...");
 		      
+		      //Retrieving data from user
+		      System.out.println("Enter Employee Details(ID,Birth-Date,First-Name,Last-Name,Gender,Hire-Date)");
+		      no = Integer.parseInt(br.readLine());
+		      bdate = br.readLine();
+		      first = br.readLine();
+		      last = br.readLine();
+		      gen = br.readLine();
+		      hdate = br.readLine();
+		      
 		      //Execute a query
 		      System.out.println("Inserting records into the table...");
 		      stmt = conn.createStatement();
 		      
-		      String sql = "INSERT INTO employees " + "VALUES('103', '1998-10-13', 'Linley', 'Baruch', 'M', '2019-07-08')";
+		      String sql = "INSERT INTO employees " + "VALUES('" + no + "', '" + bdate + "', '" + first + "', '" + last +"', '" + gen + "', '" + hdate + "')";
 		      stmt.executeUpdate(sql);
 		      System.out.println("Inserted records into the table...");
 	   }
