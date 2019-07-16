@@ -16,6 +16,9 @@ public class JdbcGetAll {
 		   
 	   Connection conn = null;
 	   Statement stmt = null;
+	   int no;
+       Date bdate,hdate;
+       String first,last,gen;
 	   try{
 	      //Register JDBC driver
 	      Class.forName("com.mysql.cj.jdbc.Driver");
@@ -34,12 +37,12 @@ public class JdbcGetAll {
 	      //Extract data from result set
 	      while(rs.next()){
 	         //Retrieve by column name
-	         int no  = rs.getInt("emp_no");
-	         Date bdate = rs.getDate("birth_date");
-	         String first = rs.getString("first_name");
-	         String last = rs.getString("last_name");
-	         String gen = rs.getString("gender");
-	         Date hdate = rs.getDate("hire_date");
+	         no  = rs.getInt("emp_no");
+	         bdate = rs.getDate("birth_date");
+	         first = rs.getString("first_name");
+	         last = rs.getString("last_name");
+	         gen = rs.getString("gender");
+	         hdate = rs.getDate("hire_date");
 
 	         //Display values
 	         System.out.print("ID: " + no);
@@ -52,6 +55,44 @@ public class JdbcGetAll {
 	      }
 	      //Clean-up environment
 	      rs.close();
+	      stmt.close();
+	      
+	      System.out.println();
+	      
+	      //Query to get all first names
+	      stmt = conn.createStatement();
+	      sql = "SELECT first_name FROM employees";
+	      ResultSet fs = stmt.executeQuery(sql);
+	      
+	      while(fs.next()){
+		         //Retrieve by column name
+		         first = fs.getString("first_name");
+
+		         //Display values
+		         System.out.println("Name: " + first);
+		  }
+	      fs.close();
+	      stmt.close();
+	      
+	      System.out.println();
+	      
+	      //Query to get details based on employee no.
+	      stmt = conn.createStatement();
+	      sql = "SELECT first_name,last_name,birth_date FROM employees WHERE emp_no = 101";
+	      ResultSet cs = stmt.executeQuery(sql);
+ 
+	      if(cs.next()) {
+	      first = cs.getString("first_name");
+          last = cs.getString("last_name");
+          bdate = cs.getDate("birth_date");
+ 
+          //Display values
+	      System.out.print("First: " + first);
+	      System.out.print(", Last: " + last);
+	      System.out.println(", Birth-Date: " + bdate);
+
+	      }
+	      cs.close();
 	      stmt.close();
 	      conn.close();
 	   }
